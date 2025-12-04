@@ -67,7 +67,12 @@ exports.booking = function(req, res){
                 let formattedDate = `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${currentDate.getDate()}`;    
                 let roomupdated = model.update(req.body.room, true, req.body.username, formattedDate)
                 if (roomupdated == null){
-                    
+                    httpCode=httpresponse.BAD_REQUEST
+                    result = {
+                        data: null,
+                        responseCode: endpointresponse.INFO_NOT_FOUND,
+                        message: 'Room not found.'
+                    };
                 }else{
                     httpCode=httpresponse.OK
                     result = {
@@ -128,52 +133,36 @@ exports.unbooking = function(req, res){
     res.status(httpCode).send(result);
 };
 
-// exports.create_a_room = function(req, res) {
-//     if (req.body.room === undefined || req.body === null || req.body.length === 0 || req.body === ''){
-//         res.status(404).send({ success: 'false', message: 'Must provide the room info to save it.' });
-//         return;
-//     }
-
-//     let room = rooms.filter(item => item.room === req.body.room);
-//     if (room.length > 0){
-//         res.status(404).send({ success: 'false', message: 'The room is already stored. Specify another one.' });
-//         return;
-//     }
-
-//     let newRoom = {
-//         room: req.body.room,
-//         capacity: parseInt(req.body.capacity),
-//         isBusy: false,
-//         start: null,
-//         end: null
-//     };
-//     rooms.push(newRoom);
-//     res.status(200).send(rooms);
-// };
-
-// exports.update_a_room = function(req, res) {
-//     if (req.body.room === undefined || req.body === null || req.body.length === 0 || req.body === ''){
-//         res.status(404).send({ success: 'false', message: 'Must provide the room info to save it.' });
-//         return;
-//     }
-
-//     const index = rooms.findIndex(x => x.room === req.body.room);
-//     if (index === undefined || index === -1){
-//         res.status(404).send({ success: 'false', message: 'The room does not exist. Specify a room that is already stored.' });
-//         return;
-//     }
-//     rooms.splice(index, 1);
-
-//     let newRoom = {
-//         room: req.body.room,
-//         capacity: parseInt(req.body.capacity),
-//         isBusy: req.body.isBusy === "false",
-//         start: req.body.start === "null" ? null :  req.body.start,
-//         end: req.body.end === "null" ? null :  req.body.end
-//     };
-//     rooms.push(newRoom);
-//     res.status(200).send(rooms);
-// };
+exports.create_room = function(req, res){
+    let httpCode=0;
+    let result= {};
+    if (req.body.room === undefined || req.body.capacity === undefined || req.body === null || req.body.length === 0 || req.body === ''){
+        httpCode=httpresponse.BAD_REQUEST
+        result = {
+            data: null,
+            responseCode: endpointresponse.MISSING_PARAMETERS,
+            message: 'Must provide the room and capacity information to create a new room.'
+        };
+    }else{
+        let room = model.create(req.body.room, req.body.capacity)
+        if (room == null){
+            httpCode=httpresponse.BAD_REQUEST
+            result = {
+                data: null,
+                responseCode: endpointresponse.DUPLICATE_DATA,
+                message: 'No duplicated data is allow. The room already exists.'
+            };
+        }else{
+            httpCode=httpresponse.OK
+            result = {
+                data: room,
+                responseCode: endpointresponse.SUCESSFUL,
+                message: sucess_meg
+            };
+        }        
+    }
+    res.status(httpCode).send(result);
+};
 
 // exports.delete_a_room = function(req, res) {
 //     if (req.params.roomName === undefined || req.params.roomName === null || req.params.roomName.length === 0){

@@ -8,7 +8,7 @@ var endpointresponse = require('../util/endpointResponse')
 exports.authUser = function(req, res) {
     let result={};
     let httpCode=0;
-    if (req.body.username === undefined || req.body === null || req.body.length === 0 || req.body === ''){
+    if (req.body.username === undefined || req.body.password === undefined || req.body === null || req.body.length === 0 || req.body === ''){
         httpCode=httpresponse.BAD_REQUEST;
         result = {
             data: null,
@@ -31,7 +31,7 @@ exports.authUser = function(req, res) {
             user: user[0].username,
             name: user[0].name,
             lastname: user[0].lastname,
-            emailname: user[0].emailname
+            email: user[0].email
         };
         result = {
             data: data,

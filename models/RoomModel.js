@@ -34,3 +34,21 @@ exports.update = function(room, isBusy, user, date){
         return null
     }
 };
+
+exports.create = function(room, capacity){
+    let useObj = this.getById(room);
+    if (useObj.length <= 0){
+        let newRoom = {
+            "room": room,
+            "capacity": capacity,
+            "is_busy": false,
+            "user": "",
+            "date": null
+        }
+        roomsData.push(newRoom);
+        util.writeFile(JSON.stringify(roomsData), jsonFile);
+        return newRoom;
+    }else{     
+        return null
+    }
+};

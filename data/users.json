@@ -5,7 +5,7 @@
         "name": "Estudiante",
         "isActive": true,
         "lastname": "Representante Estudiantil",
-        "emailname": "estudiante@est.utn.ac.cr"
+        "email": "estudiante@est.utn.ac.cr"
     }, 
     {
         "username": "mvillalta",
@@ -13,7 +13,7 @@
         "name": "Jose",
         "isActive": true,
         "lastname": "Mora Villal†a",
-        "emailname": "mvillalta@est.utn.ac.cr"
+        "email": "mvillalta@est.utn.ac.cr"
     }, 
     {
         "username": "maraya",
@@ -21,6 +21,6 @@
         "name": "Carlos",
         "isActive": false,
         "lastname": "Mena Araya",
-        "emailname": "maraya@est.utn.ac.cr"
+        "email": "maraya@est.utn.ac.cr"
     }
 ]
