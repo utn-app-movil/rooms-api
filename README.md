@@ -7,7 +7,7 @@ A simple REST API to manage rooms and bookings.
 ## 🔗 Base URL
 
 ```
-http://localhost:5001
+https://rooms-api.azurewebsites.net
 ```
 
 ---
